@@ -19,7 +19,7 @@ local x = 64 # Ширина видео/фото
 local y = 21 # Высота видео/фото
 local pr = 1 # плотность пикселей на блок (сломано, значение не менять)
 local fps = 10
-local url = "game:HttpGet('https://raw.githubusercontent.com/kdal2222/babft-video-script/refs/heads/main/BADAPPLE64X21/" # ссылка на видео / фото
+local url = "https://raw.githubusercontent.com/kdal2222/babft-video-script/refs/heads/main/BADAPPLE64X21/" # ссылка на видео / фото
 local frames = 3285 # количество кадров в видео (ставь 0 если фото)
 local plastic_count = 22500 # количество блоков пластика в инвенторе
 
