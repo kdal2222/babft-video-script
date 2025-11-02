@@ -3,7 +3,6 @@
 -- минимальное количество пластика: x * y
 -- картника или видео строятся от блока дерева (видео идет вврх и влево от блока)
 -- перед запуском скрипта не должны стоять блоки пластика и должен стоять 1 блок дерева
--- также перед запускам в руках должна быть рулетка, когда выведет 'generated = ' нужно взять в руки кисть
 
 local Players = game:GetService("Players")
 local Http = game:GetService("HttpService")
@@ -20,9 +19,9 @@ local x = 64 -- Ширина видео/фото
 local y = 21 -- Высота видео/фото
 local pr = 1 -- плотность пикселей на блок (сломано, значение не менять)
 local fps = 10
-local url = "game:HttpGet('https://raw.githubusercontent.com/kdal2222/babft-video-script/refs/heads/main/BADAPPLE64X21/" --- ссылка на видео / фото
+local url = "https://raw.githubusercontent.com/kdal2222/ttt/refs/heads/main/cat/" --- ссылка на видео / фото
 local frames = 3285 -- количество кадров в видео (ставь 0 если фото)
-local plastic_count = 22500 -- количество блоков пластика в инвенторе
+local plastic_count = 22550 -- количество блоков пластика в инвенторе
 
 -- КОНЕЦ НАСТРОЕК
 
@@ -30,7 +29,7 @@ local pixels = {}
 local video = {}
 
 for i = 0, frames do -- переносит переделанное видео в массив video
-	table.insert(video, Http:JSONDecode(url..frame_'.. i ..'.json')))
+	table.insert(video, Http:JSONDecode(game:HttpGet(url..'frame_'.. i ..'.json')))
 	print(i)
 end
 
@@ -56,7 +55,7 @@ local function create_pixels() -- дает блокам положение X и 
 
 	for i, v in ipairs(blocks:GetChildren()) do
 		if v.Name == "PlasticBlock" then
-			table.insert(temp, {X = x - math.abs(main.PPart.Position.Z - v.PPart.Position.Z), Y = y - math.abs(main.PPart.Position.Y - v.PPart.Position.Y), part=v})
+			table.insert(temp, {X = x - math.abs(main.PPart.Position.Z - v.PPart.Position.Z), Y = y - math.abs(main.PPart.Position.Y - v.PPart.Position.Y), part=v}) # менять main.PPart.Position.Z на X если в белой тиме
 		end
 	end
 
@@ -145,7 +144,7 @@ for i = 1, x, 1 / pr do
 			player.Backpack.BuildingTool.RF:InvokeServer(unpack(args))
 			countt += 1
 			
-			print(countt)
+			-- print(countt)
 		end)
 	end
 end
