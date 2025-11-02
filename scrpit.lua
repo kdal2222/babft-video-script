@@ -29,7 +29,7 @@ local pixels = {}
 local video = {}
 
 for i = 0, frames do # переносит переделанное видео в массив video
-	table.insert(video, Http:JSONDecode(url..frame_'.. i ..'.json')))
+	table.insert(video, Http:JSONDecode(game:HttpGet('url..frame_'.. i ..'.json')))
 	print(i)
 end
 
