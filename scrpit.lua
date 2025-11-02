@@ -18,9 +18,9 @@ print('running')
 local x = 64 -- Ширина видео/фото
 local y = 21 -- Высота видео/фото
 local pr = 1 -- плотность пикселей на блок (сломано, значение не менять)
-local fps = 10
-local url = "https://raw.githubusercontent.com/kdal2222/ttt/refs/heads/main/cat/" --- ссылка на видео / фото
-local frames = 3285 -- количество кадров в видео (ставь 0 если фото)
+local fps = 0.4
+local url = "https://raw.githubusercontent.com/kdal2222/babft-video-script/refs/heads/main/BADAPPLE64X21/" --- ссылка на видео / фото
+local frames = 1000 -- количество кадров в видео (ставь 0 если фото)
 local plastic_count = 22550 -- количество блоков пластика в инвенторе
 
 -- КОНЕЦ НАСТРОЕК
@@ -55,7 +55,7 @@ local function create_pixels() -- дает блокам положение X и 
 
 	for i, v in ipairs(blocks:GetChildren()) do
 		if v.Name == "PlasticBlock" then
-			table.insert(temp, {X = x - math.abs(main.PPart.Position.Z - v.PPart.Position.Z), Y = y - math.abs(main.PPart.Position.Y - v.PPart.Position.Y), part=v}) # менять main.PPart.Position.Z на X если в белой тиме
+			table.insert(temp, {X = x - math.abs(main.PPart.Position.Z - v.PPart.Position.Z), Y = y - math.abs(main.PPart.Position.Y - v.PPart.Position.Y), part=v})
 		end
 	end
 
@@ -96,7 +96,9 @@ AutoResize = workspace.Blocks[player.Name].ChildAdded:Connect(function(child) --
 			
 			for _, v in ipairs(pixels) do
 				player.Character:WaitForChild("PaintingTool", 9999999999999) -- ожидает кисточку в руках
+				print(v['Y'], v['X'])
 				local index = (v['Y'] * x * pr) + (v['X'] + 1) -- вычисляет индекс в списке video по X и Y
+				print(index)
 				task.spawn(function()
 					local args = {
 						{
@@ -144,7 +146,7 @@ for i = 1, x, 1 / pr do
 			player.Backpack.BuildingTool.RF:InvokeServer(unpack(args))
 			countt += 1
 			
-			-- print(countt)
+			print(countt)
 		end)
 	end
 end
