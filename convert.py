@@ -53,6 +53,9 @@ def gif_to_json_frames(gif_path, output_dir="frames", max_size=None):
         except EOFError:
             break
 
+    json_path = os.path.join(output_dir, f"config.json")
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump({"x": width, "y": height, "frames": frame_index - 1}, f, ensure_ascii=False)
     print(f"🎬 Всего кадров: {frame_index}")
 
 def image_to_json(image_path, output_path=None, max_size=None):
