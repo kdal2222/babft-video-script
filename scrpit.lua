@@ -19,7 +19,7 @@ local x = 16 -- Ширина видео/фото
 local y = 9 -- Высота видео/фото
 local pr = 1 -- плотность пикселей на блок (сломано, значение не менять)
 local fps = 10
-local url = "https://raw.githubusercontent.com/kdal2222/babft-video-script/refs/heads/main/digits/" --- ссылка на видео / фото
+local url = "https://raw.githubusercontent.com/kdal2222/babft-video-script/refs/heads/main/BADAPPLE32X18/" --- ссылка на видео / фото
 local frames = 9 -- количество кадров в видео (ставь 0 если фото)
 
 -- КОНЕЦ НАСТРОЕК
