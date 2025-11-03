@@ -15,15 +15,29 @@ print('running')
 
 -- НАСТРОЙКИ
 
-local x = 64 -- Ширина видео/фото
-local y = 21 -- Высота видео/фото
+local x = 16 -- Ширина видео/фото
+local y = 9 -- Высота видео/фото
 local pr = 1 -- плотность пикселей на блок (сломано, значение не менять)
-local fps = 0.4
-local url = "https://raw.githubusercontent.com/kdal2222/babft-video-script/refs/heads/main/BADAPPLE64X21/" --- ссылка на видео / фото
-local frames = 1000 -- количество кадров в видео (ставь 0 если фото)
-local plastic_count = 22550 -- количество блоков пластика в инвенторе
+local fps = 10
+local url = "https://raw.githubusercontent.com/kdal2222/babft-video-script/refs/heads/main/digits/" --- ссылка на видео / фото
+local frames = 9 -- количество кадров в видео (ставь 0 если фото)
 
 -- КОНЕЦ НАСТРОЕК
+
+local block_type
+
+local function getBlockCount(blockName)
+	local success, result = pcall(function()
+		return player.Data[blockName]
+	end)
+
+	if success and result then
+		return result.Value
+	else
+		warn("Блока '" .. blockName .. "' не существует.")
+		return 0
+	end
+end
 
 local pixels = {}
 local video = {}
@@ -48,14 +62,19 @@ end
 
 local function create_pixels() -- дает блокам положение X и Y
 	local blocks = workspace.Blocks[player.Name]
-	local main = blocks.WoodBlock
+	local main = block
 
 	local temp = {}
 	local temp1 = {}
 
 	for i, v in ipairs(blocks:GetChildren()) do
-		if v.Name == "PlasticBlock" then
-			table.insert(temp, {X = x - math.abs(main.PPart.Position.Z - v.PPart.Position.Z), Y = y - math.abs(main.PPart.Position.Y - v.PPart.Position.Y), part=v})
+		if v.Name == block_type then
+			if tostring(player.Team) == "white" then
+				table.insert(temp, {X = x - math.abs(main.PPart.Position.X - v.PPart.Position.X), Y = y - math.abs(main.PPart.Position.Y - v.PPart.Position.Y), part=v})
+			else
+				print(x - math.abs(main.PPart.Position.Z - v.PPart.Position.Z))
+				table.insert(temp, {X = x - math.abs(main.PPart.Position.Z - v.PPart.Position.Z), Y = y - math.abs(main.PPart.Position.Y - v.PPart.Position.Y), part=v})
+			end
 		end
 	end
 
@@ -64,6 +83,12 @@ local function create_pixels() -- дает блокам положение X и 
 	end
 
 	return temp1
+end
+
+for i, v in ipairs(workspace.Blocks[player.Name]:GetChildren()) do
+	block_type = v.Name
+	block = v
+	break
 end
 
 local AutoResize
@@ -96,9 +121,7 @@ AutoResize = workspace.Blocks[player.Name].ChildAdded:Connect(function(child) --
 			
 			for _, v in ipairs(pixels) do
 				player.Character:WaitForChild("PaintingTool", 9999999999999) -- ожидает кисточку в руках
-				print(v['Y'], v['X'])
 				local index = (v['Y'] * x * pr) + (v['X'] + 1) -- вычисляет индекс в списке video по X и Y
-				print(index)
 				task.spawn(function()
 					local args = {
 						{
@@ -135,9 +158,9 @@ for i = 1, x, 1 / pr do
 	for j = 1, y, 1 / pr do
 		task.spawn(function() -- генерация блоков
 			local args = {
-				"PlasticBlock",
-				plastic_count,
-				workspace:WaitForChild("Blocks"):WaitForChild(player.Name):WaitForChild("WoodBlock"):WaitForChild("PPart"),
+				block_type,
+				getBlockCount(block_type),
+				block:WaitForChild("PPart"),
 				CFrame.new(i, j, -1.100006103515625, 1, 0, 0, 0, 1, 0, 0, 0, 1),
 				true,
 				CFrame.new(0, 0, 0, 0, 0, 1, 0, 1, 0, -1, 0, 0),
