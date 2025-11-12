@@ -22,7 +22,7 @@ local url = "https://raw.githubusercontent.com/kdal2222/babft-video-script/refs/
 local first_frame = nil -- первый кадр (с 0, nil если делать gif сначала)
 local last_frame = nil -- количество кадров в видео (ставь 0 если фото, nil если делать gif полностью)
 local auto_start_draw = false
-local pr = 0.5 -- плотность пикселей на блок (сломано, значение не менять)
+local pr = 0.5 -- плотность пикселей на блок
 -- КОНЕЦ НАСТРОЕК
 
 local data = Http:JSONDecode(game:HttpGet(url..'config.json'))
