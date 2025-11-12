@@ -182,7 +182,7 @@ AutoResize = workspace.Blocks[player.Name].ChildAdded:Connect(function(child) --
 
 		pixels = clear_table(create_pixels(clear_table(pixels)))
 		pixels[x * y + 1] = nil
-		print("XDD", pixels[144]['Y'], pixels[144]['X'])
+		print(pixels[144]['Y'], pixels[144]['X'])
 
 		draw()
 	end
